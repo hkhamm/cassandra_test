@@ -1,10 +1,17 @@
+import logging
+
 # Local libs
 from models_cassandra import Event
 
 # cqlengine libs
 from cqlengine import connection
 
-DATABASE_URLS = ['127.0.0.1', '127.0.0.2' '127.0.0.3']
+# Cassandra libs
+from cassandra.auth import PlainTextAuthProvider
+
+DATABASE_URLS = ['10.0.1.200', '10.0.1.199', '10.0.1.198']
+USERNAME = 'cassandra'
+PASSWORD = 'cassandra'
 
 parameters = {'ansLatLong': '27.175015, 78.042155',
               'ansDeviceCode': '76f1064b-2845-4cdf-871e-f2b6b8033ac9',
@@ -60,14 +67,15 @@ at_school = '1'
 location = 'location 1'
 
 # Check if api_key is valid
-if 'ansApiKey' not in parameters:
-    # todo2: clean up error message, standard json format for response
-    return Response("""{"status":"Missing api_key"}""",
-                    status=status.HTTP_401_UNAUTHORIZED)
-if not is_api_key_valid(api_key):
-    # todo2: clean up error message, standard json format for response
-    return Response("""{"status":"Bad api_key"}""",
-                    status=status.HTTP_401_UNAUTHORIZED)
+#if 'ansApiKey' not in parameters:
+#    # todo2: clean up error message, standard json format for response
+#    return Response("""{"status":"Missing api_key"}""",
+#                    status=status.HTTP_401_UNAUTHORIZED)
+
+#if not is_api_key_valid(api_key):
+#    # todo2: clean up error message, standard json format for response
+#    return Response("""{"status":"Bad api_key"}""",
+#                    status=status.HTTP_401_UNAUTHORIZED)
 
 # todo: validation!?
 # cqlengine does model validation in the model class
@@ -80,12 +88,12 @@ logging.warning(parameters)
 # TODO catch server connection failure
 # TODO if server connection fails return specific status?
 
-# # Authentication
-# auth_provider = PlainTextAuthProvider(username=USERNAME,
-#                                       password=PASSWORD)
+# Authentication
+auth_provider = PlainTextAuthProvider(username=USERNAME,
+                                       password=PASSWORD)
 
 # Connecting to the database with authentication
-connection.setup(DATABASE_URLS)
+connection.setup(DATABASE_URLS, auth_provider=auth_provider)
 
 if event_type == 'null':
     Event.create(api_key=api_key,

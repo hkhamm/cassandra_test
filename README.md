@@ -1,7 +1,7 @@
 Cassandra Test
 ==============
 
-These python scripts provide a few different way to interact with the Cassandra database. This only works from the same subnet as the database servers.
+These python scripts provide a few different ways to interact with the Cassandra database. This only works from the same subnet as the database servers.
 
 post.py
 -------

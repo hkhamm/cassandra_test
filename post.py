@@ -93,7 +93,7 @@ auth_provider = PlainTextAuthProvider(username=USERNAME,
                                        password=PASSWORD)
 
 # Connecting to the database with authentication
-connection.setup(DATABASE_URLS, auth_provider=auth_provider)
+connection.setup(DATABASE_URLS, 'ans', auth_provider=auth_provider)
 
 if event_type == 'null':
     Event.create(api_key=api_key,

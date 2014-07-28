@@ -9,37 +9,38 @@ from cqlengine import connection
 # Cassandra libs
 from cassandra.auth import PlainTextAuthProvider
 
-DATABASE_URLS = ['10.0.1.200', '10.0.1.199', '10.0.1.198']
+DATABASE_URLS = ['10.0.1.61', '10.0.1.199', '10.0.1.198']
 USERNAME = 'cassandra'
 PASSWORD = 'cassandra'
 
-parameters = {'ansLatLong': '27.175015, 78.042155',
-              'ansDeviceCode': '76f1064b-2845-4cdf-871e-f2b6b8033ac9',
-              'ansSessionId': '4daa8fca-358b-4963-970f-ed78b37630f5',
-              'ansCollection': 'test0',
-              'ansClientTimestamp': '2014-06-26 15:03:58-0700',
-              'ansIpAddress': '127.0.0.1',
-              'ansApiKey': 'secret-ans-8g9xb-key',
-              'ansEventType': 'null',
-              'ansEventTimestamp': '2014-06-26 15:03:58-0700',
-              'ansAppId': 'app_id0'}
+parameters = {'event_id': '76f1064b-2845-4cdf-871e-f2b6b8033ac9',
+	      'lat_long': '27.175015, 78.042155',
+              'device_code': '76f1064b-2845-4cdf-871e-f2b6b8033ac9',
+              'session_id': '4daa8fca-358b-4963-970f-ed78b37630f5',
+              'collection': 'test42',
+              'client_timestamp': '2014-06-26 15:03:58-0700',
+              'ip_address': '127.0.0.1',
+              'api_key': 'secret-ans-8g9xb-key',
+              'event_type': 'null',
+              'event_timestamp': '2014-06-26 15:03:58-0700',
+              'app_id': 'app_id0'}
 
 # Create local variables of parameter elements
 
 # Required field, no validation required
-api_key = parameters['ansApiKey']
-app_id = parameters['ansAppId']
-device_code = parameters['ansDeviceCode']
-session_id = parameters['ansSessionId']
-event_type = parameters['ansEventType']
+api_key = parameters['api_key']
+app_id = parameters['app_id']
+device_code = parameters['device_code']
+session_id = parameters['session_id']
+event_type = parameters['event_type']
 
 # Convert timestamp strings to datetime objects
-event_timestamp = parameters['ansEventTimestamp']
-client_timestamp = parameters['ansClientTimestamp']
+event_timestamp = parameters['event_timestamp']
+client_timestamp = parameters['client_timestamp']
 
-ip_address = parameters['ansIpAddress']
-collection = parameters['ansCollection']
-lat_long = parameters['ansLatLong']
+ip_address = parameters['ip_address']
+collection = parameters['collection']
+lat_long = parameters['lat_long']
 
 # Create initial assignments for item event columns
 correctness = None
@@ -52,15 +53,15 @@ attempts = None
 
 if event_type == 'item':
     # Required
-    correctness = parameters['ansCorrectness']
-    item_on_item = parameters['ansItemOnItem']
+    correctness = parameters['correctness']
+    item_on_item = parameters['item_on_item']
 
     # Not required
-    problem_types = parameters['ansProblemTypes']
-    item_code = parameters['ansItemCode']
-    item_response = parameters['ansItemResponse']
-    difficulty = parameters['ansDifficulty']
-    attempts = parameters['ansAttempts']
+    problem_types = parameters['problem_types']
+    item_code = parameters['item_code']
+    item_response = parameters['item_response']
+    difficulty = parameters['difficulty']
+    attempts = parameters['attempts']
 
 # TODO generate here?
 at_school = '1'

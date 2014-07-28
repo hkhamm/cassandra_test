@@ -8,59 +8,55 @@ import uuid
 
 # cqlengine libs
 from cqlengine import columns
-from cqlengine import models
+from cqlengine.models import Model
 
 
-class Event(models.Model):
+class Event(Model):
     """
     Analytic Event
     """
     __keyspace__ = 'ans'
     __table_name__ = 'events'
 
+    event_id = columns.UUID(primary_key=True, default=uuid.uuid4)
+
     # Required General Event Columns
 
-    event_id = columns.UUID(db_field='ansEventId',
-                            primary_key=True,
-                            default=uuid.uuid4)
-    # collected using this api_key
-    api_key = columns.Text(db_field='ansApiKey', required=True)
-    device_code = columns.UUID(db_field='ansDeviceCode', required=True)
-    app_id = columns.Text(db_field='ansApiId', required=True)
-    session_id = columns.UUID(db_field='ansSessionId', required=True)
+    api_key = columns.Text(primary_key=True, required=True)
+    device_code = columns.UUID(required=True)
+    app_id = columns.Text(required=True)
+    session_id = columns.UUID(required=True)
+    event_type = columns.Text(required=True)
+    # event_timestamp is when the item was completed
+    event_timestamp = columns.Text(required=True)
 
     # Required Item Event Columns
 
-    correctness = columns.Boolean(db_field='ansCorrectness', required=False)
-    item_on_item = columns.Float(db_field='ansItemOnItem', required=False)
-    # when the item was completed
-    event_timestamp = columns.Text(db_field='ansEventTimestamp')
-    event_type = columns.Text(db_field='ansEventType', required=True)
+    correctness = columns.Boolean()
+    item_on_item = columns.Float()
 
     # Other General Events Columns
 
-    ip_address = columns.Text(db_field='ansIpAddress', required=False)
-    client_timestamp = columns.Text(db_field='ansClientTimestamp')
-    # Name of collection
-    collection = columns.Text(db_field='ansCollection', required=False)
-    lat_long = columns.Text(db_field='ansLatLong', required=False)
+    ip_address = columns.Text()
+    client_timestamp = columns.Text()
+    # collection is the name of the collection
+    collection = columns.Text()
+    lat_long = columns.Text()
 
     # Server Generated General Event Columns
 
-    location = columns.Text(db_field='ansLocation', required=False)
-    # choices: -1 unknown, 0 no, 1 yes
-    at_school = columns.Text(db_field='ansAtSchool', required=False, default=-1)
+    location = columns.Text()
+    # at_school choices: -1 unknown, 0 no, 1 yes
+    at_school = columns.Text(default=-1)
 
     # Other Item Event Columns
 
     # Set or list?
-    problem_types = columns.Set(db_field='ansProblemTypes',
-                                value_type=columns.Text,
-                                required=False)
-    item_code = columns.Text(db_field='ansItemCode', required=False)
-    item_response = columns.Text(db_field='ansItemResponse', required=False)
-    difficulty = columns.Integer(db_field='ansDifficulty', required=False)
-    attempts = columns.Integer(db_field='ansAttempts', required=False)
+    problem_types = columns.Set(value_type=columns.Text)
+    item_code = columns.Text()
+    item_response = columns.Text()
+    difficulty = columns.Integer()
+    attempts = columns.Integer()
 
 
 # todo2: will these ITEM properties below become _ans_ prefixed and the library handling it on ios?

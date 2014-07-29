@@ -9,12 +9,12 @@ from cqlengine import connection
 # Cassandra libs
 from cassandra.auth import PlainTextAuthProvider
 
-DATABASE_URLS = ['10.0.1.61', '10.0.1.199', '10.0.1.198']
+URLS = ['10.0.1.61', '10.0.1.199', '10.0.1.198'] # ['127.0.0.1'] # 
 USERNAME = 'cassandra'
 PASSWORD = 'cassandra'
 
 parameters = {'event_id': '76f1064b-2845-4cdf-871e-f2b6b8033ac9',
-	      'lat_long': '27.175015, 78.042155',
+	      	  	'lat_long': '27.175015, 78.042155',
               'device_code': '76f1064b-2845-4cdf-871e-f2b6b8033ac9',
               'session_id': '4daa8fca-358b-4963-970f-ed78b37630f5',
               'collection': 'test42',
@@ -23,9 +23,10 @@ parameters = {'event_id': '76f1064b-2845-4cdf-871e-f2b6b8033ac9',
               'api_key': 'secret-ans-8g9xb-key',
               'event_type': 'null',
               'event_timestamp': '2014-06-26 15:03:58-0700',
-              'app_id': 'app_id0'}
+              'app_id': 'app_id1'}
 
 # Create local variables of parameter elements
+event_id = parameters['event_id']
 
 # Required field, no validation required
 api_key = parameters['api_key']
@@ -91,13 +92,14 @@ logging.warning(parameters)
 
 # Authentication
 auth_provider = PlainTextAuthProvider(username=USERNAME,
-                                       password=PASSWORD)
+                                      password=PASSWORD)
 
 # Connecting to the database with authentication
-connection.setup(DATABASE_URLS, 'ans', auth_provider=auth_provider)
+connection.setup(URLS, 'ans', auth_provider=auth_provider)
 
 if event_type == 'null':
-    Event.create(api_key=api_key,
+    Event.create(event_id=event_id,
+								 api_key=api_key,
                  app_id=app_id,
                  device_code=device_code,
                  session_id=session_id,
@@ -110,7 +112,8 @@ if event_type == 'null':
                  at_school=at_school,
                  location=location)
 elif event_type == 'item':
-    Event.create(api_key=api_key,
+    Event.create(event_id=event_id,
+								 api_key=api_key,
                  app_id=app_id,
                  device_code=device_code,
                  session_id=session_id,

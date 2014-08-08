@@ -19,7 +19,7 @@ from cassandra.auth import PlainTextAuthProvider
 from models_cassandra import Event
 
 # Cassandra details
-URLS = ['10.0.1.61', '10.0.1.199', '10.0.1.198'] # ['127.0.0.1'] # 
+URLS = ['127.0.0.1'] #  ['10.0.1.61', '10.0.1.199', '10.0.1.198'] #
 USERNAME = 'cassandra'
 PASSWORD = 'cassandra'
 
@@ -27,6 +27,6 @@ PASSWORD = 'cassandra'
 auth_provider = PlainTextAuthProvider(username=USERNAME, password=PASSWORD)
 
 # Connecting to the database with authentication
-connection.setup(URLS, auth_provider=auth_provider)
+connection.setup(URLS, 'ans', auth_provider=auth_provider)
 
 sync_table(Event)

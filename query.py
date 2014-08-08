@@ -7,7 +7,9 @@ from models_cassandra import Event
 # Cassandra libs
 from cassandra.auth import PlainTextAuthProvider
 
-URLS = ['10.0.1.61', '10.0.1.199', '10.0.1.198'] # ['127.0.0.1'] # 
+import json
+
+URLS = ['127.0.0.1'] #  ['10.0.1.61', '10.0.1.199', '10.0.1.198'] #
 USERNAME = 'cassandra'
 PASSWORD = 'cassandra'
 
@@ -18,11 +20,18 @@ auth_provider = PlainTextAuthProvider(username=USERNAME, password=PASSWORD)
 connection.setup(URLS, 'ans', auth_provider=auth_provider)
 
 # Get all objects from the database
-query = Event.objects.filter(event_id='76f1064b-2845-4cdf-871e-f2b6b8033ac9')
-#query = Event.objects.all()
-#query = query.filter(app_id='app_id0')
-# print(query)
+# q1 = Event.objects.limit(20000)
+q2 = Event.objects.all().limit(10)
 
-# Print all object from the database
-for event in query:
-    print(dict(event))
+# print('q1 size: ' + str(q1.count()))
+# print('q2 size: ' + str(q2.count()))
+
+obj = []
+
+for event in q2:
+    item = dict(event)
+    obj.append(item)
+
+json_obj = json.dumps(str(obj))
+
+print(json.loads(json_obj))

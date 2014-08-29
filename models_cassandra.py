@@ -28,7 +28,7 @@ class Event(Model):
     session_id = columns.UUID(required=True)
     event_type = columns.Text(required=True)
     # event_timestamp is when the item was completed
-    event_timestamp = columns.Text(required=True)
+    event_timestamp = columns.DateTime(required=True)
 
     # Required Item Event Columns
 
@@ -38,7 +38,6 @@ class Event(Model):
     # Other General Events Columns
 
     ip_address = columns.Text()
-    client_timestamp = columns.Text()
     # collection is the name of the collection
     collection = columns.Text()
     lat_long = columns.Text()

@@ -27,7 +27,7 @@ time = arrow.utcnow()
 print('Posting...')
 
 for i in range(10000):
-		timestamp = arrow.utcnow().to('local').format('YYYY-MM-DDTHH:mm:ssZZ')
+		timestamp = arrow.utcnow().to('local').format('YYYY-MM-DDTHH:mm:ssZZZ')
 		Event.create(event_id=str(uuid.uuid4()),
 								 api_key='secret-ans-8g9xb-key',
 								 app_id='app_id1',

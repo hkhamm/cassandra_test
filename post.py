@@ -11,7 +11,7 @@ from cqlengine import connection
 # Cassandra libs
 from cassandra.auth import PlainTextAuthProvider
 
-URLS = ['127.0.0.1'] #  ['10.0.1.61', '10.0.1.199', '10.0.1.198'] #
+URLS = ['54.68.10.142'] #  ['10.0.1.61', '10.0.1.199', '10.0.1.198'] #
 USERNAME = 'cassandra'
 PASSWORD = 'cassandra'
 
@@ -26,20 +26,19 @@ time = arrow.utcnow()
 
 print('Posting...')
 
-for i in range(100000):
-		timestamp = arrow.utcnow().to('local').format('YYYY-MM-DDTHH:mm:ssZZZ')
-		Event.create(event_id=str(uuid.uuid4()),
-								 api_key='secret-ans-8g9xb-key',
-								 app_id='app_id1',
-								 device_code=str(uuid.uuid4()),
-								 session_id=str(uuid.uuid4()),
-								 event_timestamp=timestamp,
-								 client_timestamp=timestamp,
-								 event_type='null',
-								 ip_address='127.0.0.1',
-								 collection='test',
-								 lat_long='27.175015, 78.042155',
-								 at_school='1',
-								 location='location 1')
+for i in range(10000):
+    timestamp = arrow.utcnow().to('local').format('YYYY-MM-DDTHH:mm:ssZZZ')
+    Event.create(event_id=str(uuid.uuid4()),
+	         api_key='secret-ans-8g9xb-key',
+	         app_id='app_id1',
+		 device_code=str(uuid.uuid4()),
+                 session_id=str(uuid.uuid4()),
+	         event_timestamp=timestamp,
+	         event_type='null',
+		 ip_address='127.0.0.1',
+		 collection='test',
+		 lat_long='27.175015, 78.042155',
+		 at_school='1',
+		 location='location 1')
 
 print('Posting began ' + time.humanize())

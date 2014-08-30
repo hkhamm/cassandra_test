@@ -1,6 +1,7 @@
 import logging
 import uuid
 import arrow
+import dateutil.parser
 
 # Local libs
 from models_cassandra import Event

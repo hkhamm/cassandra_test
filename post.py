@@ -13,7 +13,7 @@ from cqlengine import connection
 # Cassandra libs
 from cassandra.auth import PlainTextAuthProvider
 
-URLS = ['54.68.10.142'] #  ['10.0.1.61', '10.0.1.199', '10.0.1.198'] #
+URLS = ['127.0.0.1'] #  ['10.0.1.61', '10.0.1.199', '10.0.1.198'] #
 USERNAME = 'cassandra'
 PASSWORD = 'cassandra'
 

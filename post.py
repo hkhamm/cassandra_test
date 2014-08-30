@@ -27,13 +27,13 @@ time = arrow.utcnow()
 print('Posting...')
 
 for i in range(10000):
-    timestamp = arrow.utcnow().to('local').format('YYYY-MM-DDTHH:mm:ssZZZ')
+    timestamp = arrow.utcnow().to('local').format('YYYY-MM-DDTHH:mm:ssZZ')
     Event.create(event_id=str(uuid.uuid4()),
 	         api_key='secret-ans-8g9xb-key',
 	         app_id='app_id1',
 		 device_code=str(uuid.uuid4()),
                  session_id=str(uuid.uuid4()),
-	         event_timestamp=timestamp,
+	         event_timestamp=dateutil.parser.parse(timestamp),
 	         event_type='null',
 		 ip_address='127.0.0.1',
 		 collection='test',
